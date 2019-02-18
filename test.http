@@ -1,0 +1,12 @@
+@host = http://localhost:8080
+
+###
+
+POST {{host}}/name HTTP/1.1
+Content-Type: application/json
+
+{
+    "type": "rare",
+    "sex": "female",
+    "year": 2005
+}
