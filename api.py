@@ -63,5 +63,3 @@ def name():
         return jsonify({
             'name': selected_row['name']
         })
-
-app.run(host='192.168.56.101', port=8080)
