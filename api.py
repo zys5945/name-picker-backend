@@ -11,23 +11,49 @@ sex_to_aggregated_df, year_to_sex_to_df, year_range = preprocessor.load_and_prep
 common_percentage = 0.1
 rare_percentage = 0.1
 
+"""
+    GET
+
+    return
+
+    {
+        "start": year
+        "stop": year
+    }
+    years are inclusive
+"""
 @app.route('/years', methods=['GET'])
 def years():
-    """
-        years are inclusive
-    """
     return jsonify({
         'start': year_range.start,
         'stop': year_range.stop - 1,
     })
 
+
 sex_options = ['either', 'female', 'male']
 type_options = ['random', 'common', 'rare']
 
+"""
+    POST
+
+    {
+        "type":
+        "sex":
+        "year": 
+            optional
+    }
+
+    return
+
+    {
+        "name":
+    }
+
+"""
 @app.route('/name', methods=['POST'])
 def name():
     # input processing
-    request_json = request.get_json()
+    request_json = json.loads(request.data)
 
     sex = request_json['sex']
     name_type = request_json['type']
