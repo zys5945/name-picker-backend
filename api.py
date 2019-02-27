@@ -89,3 +89,8 @@ def name():
         return jsonify({
             'name': selected_row['name']
         })
+
+
+from flask_cors import CORS
+CORS(app, origins=['http://127.0.0.1:3000'])
+app.run()
