@@ -112,7 +112,7 @@ def get_name_description(name):
         response = requests.get(wikiEndpoint + re.sub('<Name>', name, pattern))
         if not response.ok:
             continue
-        
+
         soup = BeautifulSoup(response.text, features="html.parser")
         main_content = soup.select('.mw-parser-output')[0]
 
@@ -127,8 +127,8 @@ def get_name_description(name):
                 if paragraph_counter == 2:
                     break
 
-        # remove all references
-        text = re.sub('\[[0-9].+\]', text, '')
+        # remove all references and things like [ citation needed ]
+        text = re.sub('\[.*?\]', '', text)
 
         # remove last line if the last character is :
         # note paragraphs end with line feed U+000A, thus it is technically the second last character
