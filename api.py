@@ -142,7 +142,3 @@ def get_name_description(name):
             return text
 
     return None
-
-from flask_cors import CORS
-CORS(app, origins=['http://127.0.0.1:3000'])
-app.run()
