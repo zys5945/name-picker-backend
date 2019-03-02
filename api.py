@@ -1,5 +1,5 @@
 from flask import Flask, request, abort, jsonify
-import json
+import ujson
 import random
 import math
 import preprocessor
@@ -9,7 +9,7 @@ import re
 
 app = Flask(__name__)
 
-sex_to_aggregated_df, year_to_sex_to_df, year_range = preprocessor.load_and_preprocess()
+sex_to_aggregated_df, year_to_sex_to_df, name_to_json, year_range = preprocessor.load_and_preprocess()
 
 common_percentage = 0.1
 rare_percentage = 0.1
@@ -57,7 +57,7 @@ type_options = ['random', 'common', 'rare']
 @app.route('/name', methods=['POST'])
 def name():
     # input processing
-    request_json = json.loads(request.data)
+    request_json = ujson.loads(request.data)
 
     sex = request_json['sex']
     name_type = request_json['type']
@@ -91,11 +91,10 @@ def name():
         name = selected_row['name']
 
     # get description
-
-
     return jsonify({
         'name': name,
         'description': get_name_description(name),
+        'frequencies': name_to_json[name],
     })
 
 
